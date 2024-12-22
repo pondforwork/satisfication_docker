@@ -1,0 +1,11 @@
+For Dev
+docker-compose --env-file .env.dev up -d --build
+
+For Dev
+docker-compose --env-file .env up -d --build
+
+
+For Production
+docker-compose --env-file .env.production up -d --build
+
+cat /var/www/storage/logs/laravel.log

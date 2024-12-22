@@ -1,0 +1,77 @@
+services:
+  laravel:
+    build:
+      context: ./satisfication_admin
+      dockerfile: Dockerfile
+    container_name: satisfication_laravel
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./satisfication_admin:/var/www
+    ports:
+      - "8000:8000"
+    networks:
+      - satisfication_network
+    command: >
+      sh -c "composer install && php artisan serve --host=0.0.0.0 --port=8000"
+
+  db:
+    image: mysql:latest
+    container_name: satisfication_db
+    environment:
+      MYSQL_ROOT_PASSWORD: 0990064691a
+      MYSQL_DATABASE: satisfication
+    volumes:
+      - ./db:/var/lib/mysql
+    ports:
+      - "8010:3306"
+    networks:
+      - satisfication_network
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_satisfication
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - laravel-data:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - satisfication_network
+
+  rabbitmq:
+    env_file: "./satisfication_admin/.env"
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "8020:5672"
+      - "8030:15672"
+    networks:
+      - satisfication_network
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: satisfication_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - "8081:80"
+    networks:
+      - satisfication_network
+
+volumes:
+  laravel-data:
+
+networks:
+  satisfication_network:
+    driver: bridge
