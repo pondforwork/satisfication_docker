@@ -1,0 +1,23 @@
+docker exec -it satisfication_laravel /bin/bash
+php artisan migrate:refresh
+
+sudo chmod -R 775 /root/satisfication/satisfication_admin/storage
+sudo chmod -R 775 /root/satisfication/satisfication_admin/bootstrap/cache
+
+
+Set Permission
+sudo chown -R www-data:www-data /root/satisfication/satisfication_admin/storage
+sudo chown -R www-data:www-data /root/satisfication/satisfication_admin/bootstrap/cache
+
+sudo chmod -R 775 /root/satisfication/satisfication_admin/storage
+sudo chmod -R 775 /root/satisfication/satisfication_admin/bootstrap/cache
+
+
+Set Permission เพื่อ Write Image
+sudo chmod -R 775 /path/to/your/project/public/images
+เข้ามาที่ image แล้ว  sudo chmod -R 775 ./
+
+
+sh -c "composer install && php artisan serve --host=0.0.0.0 --port=8000"
+
+sh -c "php-fpm"

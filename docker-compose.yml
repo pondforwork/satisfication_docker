@@ -13,7 +13,6 @@ services:
     networks:
       - satisfication_network
     command: >
-      sh -c "composer install && php artisan serve --host=0.0.0.0 --port=8000"
 
   db:
     image: mysql:latest
@@ -30,25 +29,13 @@ services:
       - satisfication_network
     restart: always
 
-  nginx:
-    image: nginx:alpine
-    container_name: nginx_satisfication
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "8080:80"
-    volumes:
-      - laravel-data:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-    networks:
-      - satisfication_network
-
   rabbitmq:
     env_file: "./satisfication_admin/.env"
     image: rabbitmq:3-management
     container_name: rabbitmq
     restart: unless-stopped
     environment:
+    # กำหนด Username และ Password ที่นี่
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: password
     ports:

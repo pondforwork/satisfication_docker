@@ -1,11 +1,11 @@
-INSERT INTO `satisfication_test`.`checkin_settings`
+INSERT INTO `satisfication`.`checkin_settings`
 (`checkin_settings_id`,
 `advance_late_duration`)
 VALUES
 (1,15);
 
 
-INSERT INTO `satisfication_test`.`client_settings`
+INSERT INTO `satisfication`.`client_settings`
 (`client_settings_id`,
 `wallpaper_url`,
 `header_text`,
@@ -18,15 +18,15 @@ INSERT INTO `satisfication_test`.`client_settings`
 VALUES
 (1,
 '123456.jpg',
-'ทดสอบ',
+'Header Text',
 null,
 null,
-'footer_text',
+'Footer Text',
 null,
 null,
 '2024-09-12 12:25:46');
 
-INSERT INTO `satisfication_test`.`sequence`
+INSERT INTO `satisfication`.`sequence`
 (`sequence_id`,
 `sequence_name`,
 `prefix`,
@@ -37,7 +37,7 @@ VALUES
 'L',
 0);
 
-INSERT INTO `satisfication_test`.`sequence`
+INSERT INTO `satisfication`.`sequence`
 (`sequence_id`,
 `sequence_name`,
 `prefix`,
@@ -48,21 +48,21 @@ VALUES
 'D',
 0);
 
-INSERT INTO `satisfication_test`.`role`
+INSERT INTO `satisfication`.`role`
 (`role_id`,
 `role`)
 VALUES
 (1,
 'admin');
 
-INSERT INTO `satisfication_test`.`role`
+INSERT INTO `satisfication`.`role`
 (`role_id`,
 `role`)
 VALUES
 (2,
 'employee');
 
-INSERT INTO `satisfication_test`.`role`
+INSERT INTO `satisfication`.`role`
 (`role_id`,
 `role`)
 VALUES
