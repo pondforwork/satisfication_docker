@@ -11,9 +11,18 @@ class RabbitMqController extends Controller
     private $connection;
     private $channel;
 
+    
     public function __construct()
     {
-        $this->connection = new AMQPStreamConnection('platform.buu.in.th', 8020, 'user', 'Pddd1245');
+        // ดึงค่าจาก .env
+        $host = env('RABBITMQ_HOST', '127.0.0.1'); // ค่าเริ่มต้นเป็น localhost
+        $port = env('RABBITMQ_PORT', 5672); // ค่าเริ่มต้นเป็นพอร์ต 5672
+        $user = env('RABBITMQ_DEFAULT_USER', 'guest'); // ค่าเริ่มต้นเป็น guest
+        $password = env('RABBITMQ_DEFAULT_PASS', 'guest'); // ค่าเริ่มต้นเป็น guest
+
+        // ใช้ค่าที่ดึงจาก .env ในการสร้างการเชื่อมต่อ
+        $this->connection = new AMQPStreamConnection($host, $port, $user, $password);
+
         // Open a channel
         $this->channel = $this->connection->channel();
     }
